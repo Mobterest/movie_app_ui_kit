@@ -200,98 +200,104 @@ class Func {
                   MaterialPageRoute(
                     builder: (context) => MovieDetails(res[i]),
                   ));
-            }, child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-                width: 100,
-                child: ClipRRect(
-                    borderRadius: imageRadius,
-                    child: FadeInImage.assetNetwork(
-                      placeholder: LOADING_IMG,
-                      image: IMAGE_URL + res[i]['poster_path'],
-                    ))),
-            Expanded(
-                child: Container(
-                    padding: DIM_PADDING_5,
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            res[i]['original_title'] == null
-                                ? ''
-                                : res[i]['original_title'],
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
-                                color: isDark ? WHITE_PALETTE : DARK_PALETTE),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Text.rich(TextSpan(
-                            style: TextStyle(
-                                color: isDark ? WHITE_PALETTE : DARK_PALETTE),
-                            children: <InlineSpan>[
-                              TextSpan(text: REL, style: STYLE_REL),
-                              TextSpan(
-                                  text: res[i]['release_date'],
-                                  style: STYLE_REL_DATE),
-                            ],
-                          )),
-                          FutureBuilder<String>(
-                              future: getGenre(res[i]['genre_ids'][0]),
-                              builder:
-                                  (context, AsyncSnapshot<String> snapshot) {
-                                String res = '';
-
-                                if (snapshot.hasData) {
-                                  res = snapshot.data;
-                                }
-                                return Text(
-                                  res,
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      color: isDark
-                                          ? WHITE_PALETTE
-                                          : DARK_PALETTE),
-                                );
-                              }),
-                          ActionChip(
-                              backgroundColor: Colors.transparent,
-                              avatar: Icon(Icons.star,
-                                  color: RED_PALETTE, size: 20),
-                              label: Text.rich(TextSpan(
+            },
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                    width: 100,
+                    child: ClipRRect(
+                        borderRadius: imageRadius,
+                        child: FadeInImage.assetNetwork(
+                          placeholder: LOADING_IMG,
+                          image: IMAGE_URL + res[i]['poster_path'],
+                        ))),
+                Expanded(
+                    child: Container(
+                        padding: DIM_PADDING_5,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                res[i]['original_title'] == null
+                                    ? ''
+                                    : res[i]['original_title'],
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                    color:
+                                        isDark ? WHITE_PALETTE : DARK_PALETTE),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Text.rich(TextSpan(
+                                style: TextStyle(
+                                    color:
+                                        isDark ? WHITE_PALETTE : DARK_PALETTE),
                                 children: <InlineSpan>[
+                                  TextSpan(text: REL, style: STYLE_REL),
                                   TextSpan(
-                                      text: res[i]['vote_average'].toString(),
-                                      style: STYLE_RATE),
-                                  TextSpan(text: TRATE, style: STYLE_TRATE),
+                                      text: res[i]['release_date'],
+                                      style: STYLE_REL_DATE),
                                 ],
                               )),
-                              onPressed: () {}),
-                          FutureBuilder<int>(
-                              future: getNoOfReviews(res[i]['id']),
-                              builder: (context, AsyncSnapshot<int> snapshot) {
-                                int res = 0;
+                              FutureBuilder<String>(
+                                  future: getGenre(res[i]['genre_ids'][0]),
+                                  builder: (context,
+                                      AsyncSnapshot<String> snapshot) {
+                                    String res = '';
 
-                                if (snapshot.hasData) {
-                                  res = snapshot.data;
-                                }
+                                    if (snapshot.hasData) {
+                                      res = snapshot.data;
+                                    }
+                                    return Text(
+                                      res,
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: isDark
+                                              ? WHITE_PALETTE
+                                              : DARK_PALETTE),
+                                    );
+                                  }),
+                              ActionChip(
+                                  backgroundColor: Colors.transparent,
+                                  avatar: Icon(Icons.star,
+                                      color: RED_PALETTE, size: 20),
+                                  label: Text.rich(TextSpan(
+                                    children: <InlineSpan>[
+                                      TextSpan(
+                                          text:
+                                              res[i]['vote_average'].toString(),
+                                          style: STYLE_RATE),
+                                      TextSpan(text: TRATE, style: STYLE_TRATE),
+                                    ],
+                                  )),
+                                  onPressed: () {}),
+                              FutureBuilder<int>(
+                                  future: getNoOfReviews(res[i]['id']),
+                                  builder:
+                                      (context, AsyncSnapshot<int> snapshot) {
+                                    int res = 0;
 
-                                return Text.rich(TextSpan(
-                                  style: TextStyle(
-                                      color: isDark
-                                          ? WHITE_PALETTE
-                                          : DARK_PALETTE),
-                                  children: <InlineSpan>[
-                                    TextSpan(
-                                        text: res.toString(), style: STYLE_RVW),
-                                    TextSpan(text: RVW, style: STYLE_RVW),
-                                  ],
-                                ));
-                              })
-                        ])))
-          ],
-        )),
+                                    if (snapshot.hasData) {
+                                      res = snapshot.data;
+                                    }
+
+                                    return Text.rich(TextSpan(
+                                      style: TextStyle(
+                                          color: isDark
+                                              ? WHITE_PALETTE
+                                              : DARK_PALETTE),
+                                      children: <InlineSpan>[
+                                        TextSpan(
+                                            text: res.toString(),
+                                            style: STYLE_RVW),
+                                        TextSpan(text: RVW, style: STYLE_RVW),
+                                      ],
+                                    ));
+                                  })
+                            ])))
+              ],
+            )),
       ));
     }
     return x;

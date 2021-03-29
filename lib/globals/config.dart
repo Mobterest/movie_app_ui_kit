@@ -1,4 +1,4 @@
-const String YOUR_API_KEY = 'ENTER_YOUR_TMDB_KEY_HERE';
+const String YOUR_API_KEY = '25f3721115f875f8c8ca5545244437b2';
 const String TRENDING_URL =
     'https://api.themoviedb.org/3/trending/all/day?api_key=' + YOUR_API_KEY;
 const String IMAGE_URL = "https://image.tmdb.org/t/p/w500";
